@@ -2,7 +2,35 @@ import { createStore } from "vuex";
 
 export default createStore({
     state: {
-        accounts: []
+        accounts: [
+            {
+                id: 1,
+                name: "Зарплата",
+                money: 1000,
+                currentAccount: true,
+                costs: {
+                    categories: [
+                        {
+                            id: 12312,
+                            name: 'Продукты',
+                            value: 50,
+                        },
+                        {
+                            id: 12312,
+                            name: 'Продукты',
+                            value: 50,
+                        },
+                        {
+                            id: 12312,
+                            name: 'Продукты',
+                            value: 50,
+                        }
+                    ],
+                    costValue: 50
+                },
+                income: {}
+            }
+        ],
     },
     mutations: {
         switchAccount(state, itemID) {
@@ -31,7 +59,14 @@ export default createStore({
         },
 
         getCurrentAccount(state) {
-            return state.accounts.find(element => element.currentAccount === true);
+            return state.accounts
+                .find(element => element.currentAccount === true)
+        },
+
+        getCurrentAccountCosts(state) {
+            return state.accounts
+                .find(element => element.currentAccount === true)
+                .costs
         }
     }
 });
