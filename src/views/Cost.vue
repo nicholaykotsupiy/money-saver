@@ -1,12 +1,10 @@
 <template>
-  <CostList 
-    :categories="getCurrentAccountCosts.categories"
-  />
+  <CostList />
 
   <div class="text-center text-xl mt-16 bg-blue-900 mx-auto p-4 rounded-full w-56" >
     <div class="bg-white px-10 py-16 rounded-full">
       <div class="text-xl font-medium">Расходы</div>
-      <div class="text-3xl text-red-600 font-semibold">{{ getCurrentAccountCosts.costValue }}$</div>
+      <div class="text-3xl text-red-600 font-semibold">{{ totalCost }}$</div>
     </div>
   </div>
 </template>
@@ -20,7 +18,7 @@ export default {
   components: { CostList },
   computed: {
       ...mapGetters([
-          'getCurrentAccountCosts'
+          'totalCost'
       ])
   }
 };

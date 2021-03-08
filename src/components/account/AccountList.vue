@@ -1,7 +1,7 @@
 <template>
   <ul>
     <AccountListItem 
-      v-for="item in getAccounts" 
+      v-for="item in accounts" 
       :key="item.id" 
       :item="item"
     />
@@ -18,7 +18,7 @@ export default {
     AccountListItem,
   },
   computed: {
-    ...mapGetters(["getAccounts"]),
+    ...mapGetters(["accounts"]),
   },
 };
 </script>

@@ -51,6 +51,12 @@ export default {
         name: this.accountName,
         money: this.accountValue,
         currentAccount: false,
+        costs: {
+          categories: []
+        },
+        income: {
+          categories: []
+        }
       });
 
       this.closeForm();

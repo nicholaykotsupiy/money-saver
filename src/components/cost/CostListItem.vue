@@ -1,23 +1,24 @@
 <template>
-  <li class="flex flex-col items-center w-1/5 cursor-pointer m-2">
-    <span>{{ name }}</span>
+  <li @click="openOptionForm" class="flex flex-col items-center w-1/5 cursor-pointer m-2">
+    <span>{{ category.name }}</span>
     <div class="p-5 bg-blue-500 rounded-full w-8"></div>
-    <span>{{ value }}</span>
+    <span>{{ category.value }}$</span>
   </li>
 </template>
 
 <script>
 export default {
-    name: 'CostListItem',
-    props: {
-        name: {
-            type: String,
-            required: true    
-        },
-        value: {
-            type: Number,
-            required: true
-        }
+  name: "CostListItem",
+  props: {
+      category: {
+        type: Object,
+        required: true
+      }
+  },
+  methods: {
+    openOptionForm() {
+      this.$emit('open-option', {category: this.category})
     }
-}
-</script>
+  }
+};
+</script>s

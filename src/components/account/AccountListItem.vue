@@ -3,9 +3,11 @@
     class="bg-gray-600 rounded-md my-2 px-2 py-2 cursor-pointer"
     @click="switchAccount(item.id)"
   >
-    <div class="text-md font-medium text-gray-100">{{ item.name }}</div>
+    <div class="text-md font-medium text-gray-100">
+      {{ item.name }}
+    </div>
     <div class="text-md font-medium text-green-400">
-      {{ item.money }}
+      {{ item.money }}$
     </div>
   </li>
 </template>
