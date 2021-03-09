@@ -32,15 +32,18 @@ import { v4 as uuidv4 } from "uuid";
 export default {
   name: "BaseAddWindow",
   props: {
-    categoryName: {
-      type: String,
+    category: {
+      type: Object,
       required: false,
-      default: "",
+      default: function () {
+        return { name: '', id: uuidv4() }
+      }
     },
   },
   data() {
     return {
-      name: this.categoryName,
+      name: this.category.name,
+      id: this.category.id,
       isEmpty: false,
     };
   },
@@ -48,8 +51,13 @@ export default {
     ...mapActions(["addCategory"]),
 
     categorySaveHandler() {
+
+      if(this.name.trim() === '') {
+        this.name = this.category.name
+      }
+
       this.addCategory({
-        id: uuidv4(),
+        id: this.id,
         name: this.name,
         value: 0,
       });
@@ -63,10 +71,10 @@ export default {
     },
   },
   updated() {
-    if (this.name.trim() !== "") {
-      this.isEmpty = true;
-    } else {
+    if (this.name.trim() === '') {
       this.isEmpty = false;
+    } else {
+      this.isEmpty = true;
     }
   },
 };

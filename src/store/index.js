@@ -48,7 +48,10 @@ export default createStore({
             payload.currentCategories
                 .push(payload.categoryItem)
         },
-
+        editCategory(_, payload) {
+            payload.currentCategories
+                .splice(payload.categoryIndex, 1, payload.categoryItem)
+        },
         deleteCategoryItem(_, payload) {
             payload.categories
                 .splice(payload.categoryIndex, 1)
@@ -65,8 +68,13 @@ export default createStore({
 
         addCategory({ getters, commit }, categoryItem) {
             let currentCategories = getters.costCaregories
+            let categoryIndex = currentCategories.findIndex(item => item.id === categoryItem.id)
 
-            commit('addCategoryItem', { currentCategories, categoryItem })
+            if(categoryIndex !== -1) {
+                commit('editCategory', { currentCategories, categoryItem, categoryIndex })
+            } else {
+                commit('addCategoryItem', { currentCategories, categoryItem })
+            }
         },
 
         deleteCategory({ getters, commit }, categoryID) {

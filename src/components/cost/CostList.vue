@@ -12,7 +12,7 @@
     <BaseListAddItem @add="addHandler" />
   </ul>
   <div>
-    <BaseAddWindow v-if="isActive" :active="isActive" @close="closeForm" />
+    <BaseAddWindow v-if="isActive" @close="closeForm" />
   </div>
   <div>
     <BaseOptionWindow
@@ -20,11 +20,13 @@
       :category="currentCaregory"
       @close="closeOptionForm"
       @open-calculator="openCalculator"
+      @open-edit="openEditPanel"
     />
   </div>
   <div>
     <BaseCategoryCalculator v-if="isCalculatorActive" @close-calculator="closeCalculator" :category="currentCaregory" />
   </div>
+  <BaseAddWindow v-if="isEditActive" @close="closeEditPanel" :category="currentCaregory" />
 </template>
 
 <script>
@@ -49,6 +51,7 @@ export default {
       isActive: false,
       isOptionActive: false,
       isCalculatorActive: false,
+      isEditActive: false,
       currentCaregory: {},
     };
   },
@@ -73,6 +76,12 @@ export default {
     closeCalculator() {
       this.isCalculatorActive = false;
     },
+    openEditPanel() {
+      this.isEditActive = true
+    },
+    closeEditPanel() {
+      this.isEditActive = false
+    }
   },
   computed: {
     ...mapGetters(["costCaregories", "currentCostCategory"]),

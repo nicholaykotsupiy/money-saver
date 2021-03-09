@@ -13,7 +13,7 @@
     </div>
     <div class="flex justify-around items-center h-20 text-white text-lg">
       <div @click="openCalculatorHandler" class="cursor-pointer">Добавить</div>
-      <div class="cursor-pointer">Изменить</div>
+      <div @click="openEditHandler(); closeHandler();" class="cursor-pointer">Изменить</div>
       <div
         @click="
           deleteCategory(category.id);
@@ -44,6 +44,9 @@ export default {
     openCalculatorHandler() {
       this.$emit("open-calculator");
     },
+    openEditHandler() {
+      this.$emit('open-edit')
+    }
   },
 };
 </script>
