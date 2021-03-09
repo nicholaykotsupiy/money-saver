@@ -1,24 +1,23 @@
 <template>
   <ul class="mx-4 flex flex-wrap justify-center border-b-2 border-gray-800">
     <!-- Cost list -->
-    <CostListItem
-      v-for="category in costCaregories"
+    <IncomeListItem
+      v-for="category in incomeCaregories"
       :key="category.id"
       :category="category"
       @open-option="openOptionForm"
     />
-
     <!-- layout for add new cost -->
     <BaseListAddItem @add="addHandler" />
   </ul>
   <div>
-    <BaseAddWindow v-if="isActive" @close="closeForm" select="cost" />
+    <BaseAddWindow v-if="isActive" @close="closeForm" select="income" />
   </div>
   <div>
     <BaseOptionWindow
       v-if="isOptionActive"
       :category="currentCaregory"
-      select="cost"
+      select="income"
       @close="closeOptionForm"
       @open-calculator="openCalculator"
       @open-edit="openEditPanel"
@@ -29,29 +28,30 @@
       v-if="isCalculatorActive"
       @close-calculator="closeCalculator"
       :category="currentCaregory"
-      select="cost"
+      selectValue="income"
     />
   </div>
-  <BaseAddWindow
-    v-if="isEditActive"
-    @close="closeEditPanel"
-    :category="currentCaregory"
-    select='cost'
-  />
+  <div>
+    <BaseAddWindow
+      v-if="isEditActive"
+      @close="closeEditPanel"
+      :category="currentCaregory"
+      select='income'
+    />
+  </div>
 </template>
 
 <script>
-import BaseListAddItem from "../base/BaseListAddItem";
-import CostListItem from "./CostListItem";
 import { mapGetters } from "vuex";
 import BaseAddWindow from "../base/BaseAddWindow.vue";
+import BaseCategoryCalculator from '../base/BaseCategoryCalculator.vue';
+import BaseListAddItem from "../base/BaseListAddItem.vue";
 import BaseOptionWindow from "../base/BaseOptionWindow.vue";
-import BaseCategoryCalculator from "../base/BaseCategoryCalculator.vue";
+import IncomeListItem from "./IncomeListItem.vue";
 
 export default {
-  name: "CostList",
   components: {
-    CostListItem,
+    IncomeListItem,
     BaseListAddItem,
     BaseAddWindow,
     BaseOptionWindow,
@@ -95,7 +95,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["costCaregories", "currentCostCategory"]),
+    ...mapGetters(["incomeCaregories"]),
   },
 };
 </script>

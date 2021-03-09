@@ -58,6 +58,10 @@ export default {
       type: Object,
       required: true,
     },
+    select: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
@@ -65,7 +69,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["changeValueCost"]),
+    ...mapActions(["changeValue"]),
     closeCalculatorHandler() {
       this.$emit("close-calculator");
     },
@@ -74,9 +78,10 @@ export default {
       let lastValueSymbol = this.value.slice(-1) || "";
 
       if (eventValue === "=") {
-        this.changeValueCost({
+        this.changeValue({
           value: this.value,
           categoryID: this.category.id,
+          select: this.select
         })
         this.value = "";
         this.closeCalculatorHandler()

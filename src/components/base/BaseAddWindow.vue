@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="absolute inset-x-4 top-56 h-64 bg-gray-700 rounded-xl flex flex-col justify-center px-6"
-  >
+  <div class="absolute inset-x-4 top-56 h-64 bg-gray-700 rounded-xl flex flex-col justify-center px-6" >
     <button
       @click="closeForm"
       class="absolute left-4 top-2 text-lg text-white focus:outline-none"
@@ -39,6 +37,10 @@ export default {
         return { name: '', id: uuidv4() }
       }
     },
+    select: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
@@ -55,11 +57,12 @@ export default {
       if(this.name.trim() === '') {
         this.name = this.category.name
       }
-
+      
       this.addCategory({
         id: this.id,
         name: this.name,
         value: 0,
+        select: this.select
       });
 
       this.closeForm();

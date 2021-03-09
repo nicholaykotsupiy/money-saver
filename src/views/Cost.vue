@@ -17,9 +17,7 @@ export default {
   name: "Cost",
   components: { CostList },
   computed: {
-      ...mapGetters([
-          'totalCost'
-      ])
+      ...mapGetters([ 'totalCost' ])
   }
 };
 </script>

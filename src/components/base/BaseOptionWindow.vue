@@ -16,7 +16,7 @@
       <div @click="openEditHandler(); closeHandler();" class="cursor-pointer">Изменить</div>
       <div
         @click="
-          deleteCategory(category.id);
+          deleteCategory({id: category.id, select});
           closeHandler();
         "
         class="cursor-pointer"
@@ -33,6 +33,10 @@ export default {
   props: {
     category: {
       type: Object,
+      required: true,
+    },
+    select: {
+      type: String,
       required: true,
     },
   },

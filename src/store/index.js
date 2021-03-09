@@ -14,15 +14,17 @@ export default createStore({
                             id: 12312,
                             name: 'Продукты',
                             value: 0,
+                            select: 'cost'
                         }
                     ]
                 },
                 income: {
                     categories: [
                         {
-                            id: 12312,
+                            id: 1231112312,
                             name: 'Продукты',
                             value: 0,
+                            select: 'income'
                         }
                     ]
                 }
@@ -67,7 +69,13 @@ export default createStore({
         },
 
         addCategory({ getters, commit }, categoryItem) {
-            let currentCategories = getters.costCaregories
+            let currentCategories
+
+            if (categoryItem.select === 'cost') {
+                currentCategories = getters.costCaregories
+            }else {
+                currentCategories = getters.incomeCaregories
+            }
             let categoryIndex = currentCategories.findIndex(item => item.id === categoryItem.id)
 
             if (categoryIndex !== -1) {
@@ -77,19 +85,33 @@ export default createStore({
             }
         },
 
-        deleteCategory({ getters, commit }, categoryID) {
-            const categories = getters.costCaregories
-            const categoryIndex = categories.findIndex(item => item.id === categoryID)
+        deleteCategory({ getters, commit }, category) {
+
+            let categories
+            if (category.select === 'cost') {
+                categories = getters.costCaregories
+            }else {
+                categories = getters.incomeCaregories
+            }
+
+            const categoryIndex = categories.findIndex(item => item.id === category.id)
             const isDeleted = confirm("Вы действительно хотите удалить категорию ?")
 
             if (isDeleted) {
                 commit('deleteCategoryItem', { categories, categoryIndex })
             }
         },
-        changeValueCost({ getters, commit }, calculation) {
-            const categories = getters.costCaregories
-            const categoryIndex = categories.findIndex(item => item.id === calculation.categoryID)
-            const newValue = eval(calculation.value)
+        changeValue({ getters, commit }, calculation) {
+            
+            let categories
+            if (calculation.select === 'cost') {
+                categories = getters.costCaregories
+            }else {
+                categories = getters.incomeCaregories
+            }
+
+            let categoryIndex = categories.findIndex(item => item.id === calculation.categoryID)
+            let newValue = eval(calculation.value)
 
             commit('changeCategoryValue', { categories, categoryIndex, newValue })
         }
@@ -117,11 +139,31 @@ export default createStore({
                 .categories
         },
 
+        incomeCaregories(state) {
+            return state.accounts
+                .find(element => element.currentAccount === true)
+                .income
+                .categories
+        },
+
         totalCost(state) {
             let result = 0
             let categories = state.accounts
                 .find(element => element.currentAccount === true)
                 .costs.categories
+
+            for (const category of categories) {
+                result += category.value
+            }
+
+            return result
+        },
+
+        totalIncome(state) {
+            let result = 0
+            let categories = state.accounts
+                .find(element => element.currentAccount === true)
+                .income.categories
 
             for (const category of categories) {
                 result += category.value

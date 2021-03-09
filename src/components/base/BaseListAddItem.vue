@@ -13,7 +13,7 @@ export default {
   name: "BaseListAddItem",
   methods: {
     clickHandler() {
-      return this.$emit("add");
+      this.$emit("add");
     },
   },
 };
