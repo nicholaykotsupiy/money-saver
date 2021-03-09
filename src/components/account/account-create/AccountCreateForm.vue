@@ -35,10 +35,16 @@ import { mapActions } from "vuex";
 
 export default {
   name: "AccountCreateForm",
+  props: {
+    isActive: {
+      type: Boolean,
+      required: true,
+    }
+  },
   data() {
     return {
-      accountName: "",
-      accountValue: "",
+      accountName: '',
+      accountValue: '',
       isEmpty: true,
     };
   },
@@ -78,12 +84,6 @@ export default {
     } else {
       this.isEmpty = false;
     }
-  },
-  props: {
-    isActive: {
-      type: Boolean,
-      required: true,
-    },
   },
 };
 </script>

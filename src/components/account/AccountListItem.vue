@@ -6,14 +6,14 @@
     <div class="text-md font-medium text-gray-100">
       {{ item.name }}
     </div>
-    <div class="text-md font-medium text-green-400">
-      {{ item.money }}$
+    <div v-if="item.currentAccount === true" class="text-md font-medium text-green-400">
+      {{ totalCash }}$
     </div>
   </li>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "AccountListItem",
@@ -24,7 +24,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["switchAccount"]),
+    ...mapMutations([ 'switchAccount' ]),
   },
+  computed: {
+    ...mapGetters([ 'totalCash' ])
+  }
 };
 </script>

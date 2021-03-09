@@ -18,7 +18,7 @@ export default {
     AccountListItem,
   },
   computed: {
-    ...mapGetters(["accounts"]),
+    ...mapGetters(["accounts","currentAccount"]),
   },
 };
 </script>

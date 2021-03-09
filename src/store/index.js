@@ -70,7 +70,7 @@ export default createStore({
             let currentCategories = getters.costCaregories
             let categoryIndex = currentCategories.findIndex(item => item.id === categoryItem.id)
 
-            if(categoryIndex !== -1) {
+            if (categoryIndex !== -1) {
                 commit('editCategory', { currentCategories, categoryItem, categoryIndex })
             } else {
                 commit('addCategoryItem', { currentCategories, categoryItem })
@@ -123,8 +123,31 @@ export default createStore({
                 .find(element => element.currentAccount === true)
                 .costs.categories
 
-            for (let i = 0; i < categories.length; i++) {
-                result += categories[i].value
+            for (const category of categories) {
+                result += category.value
+            }
+
+            return result
+        },
+
+        totalCash(state) {
+            let result = state.accounts
+                .find(element => element.currentAccount === true).money
+
+            let costCategories = state.accounts
+                .find(element => element.currentAccount === true)
+                .costs.categories
+
+            let incomeCategories = state.accounts
+                .find(element => element.currentAccount === true)
+                .income.categories
+
+            for (const category of costCategories) {
+                result -= category.value
+            }
+
+            for (const category of incomeCategories) {
+                result += category.value
             }
 
             return result
