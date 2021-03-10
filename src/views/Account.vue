@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1 v-if="currentAccount" class="px-6 pt-4 text-2xl font-medium text-center">
+    <h1
+      v-if="currentAccount"
+      class="px-6 pt-4 text-2xl font-medium text-center"
+    >
       Текущий счёт: {{ currentAccount.name }}
     </h1>
 
@@ -28,6 +31,13 @@ export default {
   },
   computed: {
     ...mapGetters(["currentAccount"]),
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.currentAccount === undefined) {
+      next(false);
+    } else {
+      next(true)
+    }
   },
 };
 </script>

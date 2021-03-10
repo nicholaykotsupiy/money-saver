@@ -3,32 +3,32 @@ import { createStore } from "vuex";
 export default createStore({
     state: {
         accounts: [
-            {
-                id: 1,
-                name: "Зарплата",
-                money: 1000,
-                currentAccount: true,
-                costs: {
-                    categories: [
-                        {
-                            id: 12312,
-                            name: 'Продукты',
-                            value: 0,
-                            select: 'cost'
-                        }
-                    ]
-                },
-                income: {
-                    categories: [
-                        {
-                            id: 1231112312,
-                            name: 'Продукты',
-                            value: 0,
-                            select: 'income'
-                        }
-                    ]
-                }
-            }
+            // {
+            //     id: 1,
+            //     name: "Зарплата",
+            //     money: 1000,
+            //     currentAccount: true,
+            //     costs: {
+            //         categories: [
+            //             {
+            //                 id: 12312,
+            //                 name: 'Продукты',
+            //                 value: 0,
+            //                 select: 'cost'
+            //             }
+            //         ]
+            //     },
+            //     income: {
+            //         categories: [
+            //             {
+            //                 id: 1231112312,
+            //                 name: 'Продукты',
+            //                 value: 0,
+            //                 select: 'income'
+            //             }
+            //         ]
+            //     }
+            // }
         ],
     },
     mutations: {
