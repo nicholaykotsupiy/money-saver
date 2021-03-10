@@ -28,7 +28,7 @@
       v-if="isCalculatorActive"
       @close-calculator="closeCalculator"
       :category="currentCaregory"
-      selectValue="income"
+      select="income"
     />
   </div>
   <div>

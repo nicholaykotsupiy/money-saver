@@ -8,7 +8,7 @@
     >
       +
     </div>
-    <table @click="clickHandler" class="flex flex-col items-center text-2xl">
+    <table id="table" @click="clickHandler" class="flex flex-col items-center text-2xl">
       <thead class="mb-2">
         <tr>
           <td class="border-b w-56 h-10 text-center">{{ value }}</td>
@@ -93,7 +93,9 @@ export default {
         this.value = "";
       } else if (eventValue === "C" && this.value !== "") {
         this.value = this.value.slice(0, -1);
-      } else {
+      } else if(event.target.id === 'table') {
+        return
+      }else {
         this.value += eventValue;
       }
     },
