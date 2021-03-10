@@ -2,34 +2,7 @@ import { createStore } from "vuex";
 
 export default createStore({
     state: {
-        accounts: [
-            // {
-            //     id: 1,
-            //     name: "Зарплата",
-            //     money: 1000,
-            //     currentAccount: true,
-            //     costs: {
-            //         categories: [
-            //             {
-            //                 id: 12312,
-            //                 name: 'Продукты',
-            //                 value: 0,
-            //                 select: 'cost'
-            //             }
-            //         ]
-            //     },
-            //     income: {
-            //         categories: [
-            //             {
-            //                 id: 1231112312,
-            //                 name: 'Продукты',
-            //                 value: 0,
-            //                 select: 'income'
-            //             }
-            //         ]
-            //     }
-            // }
-        ],
+        accounts: JSON.parse( localStorage.getItem('accounts') ) || [],
     },
     mutations: {
         switchAccount(state, itemID) {
@@ -41,11 +14,9 @@ export default createStore({
                 }
             });
         },
-
         pushItemToState(state, newItem) {
             state.accounts.push(newItem)
         },
-
         addCategoryItem(_, payload) {
             payload.currentCategories
                 .push(payload.categoryItem)
@@ -60,14 +31,17 @@ export default createStore({
         },
         changeCategoryValue(_, payload) {
             payload.categories[payload.categoryIndex].value += payload.newValue
+        },
+        setAccountToStorage(state) {
+            localStorage.setItem('accounts', JSON.stringify(state.accounts))
         }
     },
     actions: {
         addAccount({ commit }, newItem) {
             commit('pushItemToState', newItem)
             commit('switchAccount', newItem.id)
+            commit('setAccountToStorage')
         },
-
         addCategory({ getters, commit }, categoryItem) {
             let currentCategories
 
@@ -83,8 +57,9 @@ export default createStore({
             } else {
                 commit('addCategoryItem', { currentCategories, categoryItem })
             }
-        },
 
+            commit('setAccountToStorage')
+        },
         deleteCategory({ getters, commit }, category) {
 
             let categories
@@ -100,6 +75,8 @@ export default createStore({
             if (isDeleted) {
                 commit('deleteCategoryItem', { categories, categoryIndex })
             }
+
+            commit('setAccountToStorage')
         },
         changeValue({ getters, commit }, calculation) {
             
@@ -114,6 +91,7 @@ export default createStore({
             let newValue = eval(calculation.value)
 
             commit('changeCategoryValue', { categories, categoryIndex, newValue })
+            commit('setAccountToStorage')
         }
     },
     getters: {

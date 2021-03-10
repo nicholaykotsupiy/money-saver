@@ -20,7 +20,7 @@ export default {
   },
   methods: {
       openOptionForm() {
-        return this.$emit("open-option", { category: this.category });
+        this.$emit("open-option", { category: this.category });
       },
     },
 };

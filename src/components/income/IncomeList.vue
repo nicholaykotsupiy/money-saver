@@ -74,6 +74,7 @@ export default {
       this.isActive = false;
     },
     openOptionForm(data) {
+      console.log(1)
       this.currentCaregory = data.category;
       this.isOptionActive = true;
     },
