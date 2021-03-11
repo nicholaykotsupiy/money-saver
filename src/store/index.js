@@ -105,34 +105,19 @@ export default createStore({
         },
 
         currentAccountCosts(state, getters) {
-            // return state.accounts
-            //     .find(element => element.currentAccount === true)
-            //     .costs\
             return getters.currentAccount.costs
         },
 
         costCaregories(state, getters) {
-            // return state.accounts
-            //     .find(element => element.currentAccount === true)
-            //     .costs
-            //     .categories
             return getters.currentAccountCosts.categories
         },
 
         incomeCaregories(state, getters) {
-            // return state.accounts
-            //     .find(element => element.currentAccount === true)
-            //     .income
-            //     .categories
             return getters.currentAccount.income.categories
         },
 
         totalCost(state, getters) {
             let result = 0
-            // let categories = state.accounts
-            //     .find(element => element.currentAccount === true)
-            //     .costs
-            //     .categories
 
             for (const category of getters.costCaregories) {
                 result += category.value
@@ -143,9 +128,6 @@ export default createStore({
 
         totalIncome(state, getters) {
             let result = 0
-            // let categories = state.accounts
-            //     .find(element => element.currentAccount === true)
-            //     .income.categories
 
             for (const category of getters.incomeCaregories) {
                 result += category.value
@@ -155,19 +137,6 @@ export default createStore({
         },
 
         totalCash(state, getters) {
-            // let result = state.accounts
-            //     .find(element => element.currentAccount === true).money
-
-            // let costCategories = state.accounts
-            //     .find(element => element.currentAccount === true)
-            //     .costs.categories
-
-            // let incomeCategories = state.accounts
-            //     .find(element => element.currentAccount === true)
-            //     .income.categories
-
-
-
             let result = getters.currentAccount.money
             let costCategories = getters.costCaregories
             let incomeCategories = getters.incomeCaregories

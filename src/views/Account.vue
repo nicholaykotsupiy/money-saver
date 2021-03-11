@@ -6,13 +6,10 @@
     >
       Текущий счёт: {{ currentAccount.name }}
     </h1>
-
     <div>
       <AccountCreate />
     </div>
-
     <div v-if="currentAccount" class="px-4">
-      <span class="text-lg text-center">Список счетов:</span>
       <AccountList />
     </div>
   </div>

@@ -6,7 +6,10 @@
     <div class="text-md font-medium text-gray-100">
       {{ item.name }}
     </div>
-    <div v-if="item.currentAccount === true" class="text-md font-medium text-green-400">
+    <div
+      v-if="item.currentAccount === true"
+      class="text-md font-medium text-green-400"
+    >
       {{ totalCash }}$
     </div>
   </li>
@@ -20,14 +23,14 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
-    ...mapMutations([ 'switchAccount' ]),
+    ...mapMutations(["switchAccount"]),
   },
   computed: {
-    ...mapGetters([ 'totalCash' ])
-  }
+    ...mapGetters(["totalCash"]),
+  },
 };
 </script>

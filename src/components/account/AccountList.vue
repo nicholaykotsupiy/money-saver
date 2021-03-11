@@ -1,8 +1,9 @@
 <template>
+  <span class="text-lg text-center">Список счетов:</span>
   <ul>
     <AccountListItem 
-      v-for="item in accounts" 
-      :key="item.id" 
+      v-for="item in accounts"
+      :key="item.id"
       :item="item"
     />
   </ul>
@@ -18,7 +19,10 @@ export default {
     AccountListItem,
   },
   computed: {
-    ...mapGetters(["accounts","currentAccount"]),
+    ...mapGetters([
+      "accounts",
+      "currentAccount"
+    ]),
   },
 };
 </script>
