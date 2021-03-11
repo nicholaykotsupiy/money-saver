@@ -1,52 +1,55 @@
 <template>
   <ul class="mx-4 flex flex-wrap justify-center border-b-2 border-gray-800">
-    <!-- Cost list -->
     <CostListItem
       v-for="category in costCaregories"
       :key="category.id"
       :category="category"
-      @open-option="openOptionForm"
+      @open-option="switchOptionForm"
     />
-
-    <!-- layout for add new cost -->
-    <BaseListAddItem @add="addHandler" />
+    <BaseListAddItem @add="switchForm" />
   </ul>
   <div>
-    <BaseAddWindow v-if="isActive" @close="closeForm" select="cost" />
+    <BaseAddWindow 
+      v-if="isActive" 
+      @close="switchForm" 
+      select="cost" 
+    />
   </div>
   <div>
     <BaseOptionWindow
       v-if="isOptionActive"
       :category="currentCaregory"
       select="cost"
-      @close="closeOptionForm"
-      @open-calculator="openCalculator"
-      @open-edit="openEditPanel"
+      @close="switchOptionForm"
+      @open-calculator="switchCalculator"
+      @open-edit="swichEditPanel"
     />
   </div>
   <div>
     <BaseCategoryCalculator
       v-if="isCalculatorActive"
-      @close-calculator="closeCalculator"
+      @close-calculator="switchCalculator"
       :category="currentCaregory"
       select="cost"
     />
   </div>
-  <BaseAddWindow
-    v-if="isEditActive"
-    @close="closeEditPanel"
-    :category="currentCaregory"
-    select='cost'
-  />
+  <div>
+    <BaseAddWindow
+      v-if="isEditActive"
+      @close="swichEditPanel"
+      :category="currentCaregory"
+      select="cost"
+    />
+  </div>
 </template>
 
 <script>
-import BaseListAddItem from "../base/BaseListAddItem";
-import CostListItem from "./CostListItem";
-import { mapGetters } from "vuex";
-import BaseAddWindow from "../base/BaseAddWindow.vue";
-import BaseOptionWindow from "../base/BaseOptionWindow.vue";
-import BaseCategoryCalculator from "../base/BaseCategoryCalculator.vue";
+import BaseListAddItem from "../base/BaseListAddItem"
+import CostListItem from "./CostListItem"
+import { mapGetters } from "vuex"
+import BaseAddWindow from "../base/BaseAddWindow"
+import BaseOptionWindow from "../base/BaseOptionWindow"
+import BaseCategoryCalculator from "../base/BaseCategoryCalculator"
 
 export default {
   name: "CostList",
@@ -57,45 +60,40 @@ export default {
     BaseOptionWindow,
     BaseCategoryCalculator,
   },
-  data() {
-    return {
-      isActive: false,
-      isOptionActive: false,
-      isCalculatorActive: false,
-      isEditActive: false,
-      currentCaregory: {},
-    };
-  },
+  data: () => ({
+    isActive: false,
+    isOptionActive: false,
+    isCalculatorActive: false,
+    isEditActive: false,
+    currentCaregory: {},
+  }),
   methods: {
-    addHandler() {
-      this.isActive = true;
+    switchForm() {
+      this.isActive = !this.isActive
     },
-    closeForm() {
-      this.isActive = false;
+    switchOptionForm(data) {
+      if (!this.isOptionActive) {
+        this.currentCaregory = data.category
+      }
+
+      this.isOptionActive = !this.isOptionActive
     },
-    openOptionForm(data) {
-      this.currentCaregory = data.category;
-      this.isOptionActive = true;
+    switchCalculator() {
+      if (!this.isCalculatorActive) {
+        this.switchOptionForm()
+      }
+
+      this.isCalculatorActive = !this.isCalculatorActive
     },
-    closeOptionForm() {
-      this.isOptionActive = false;
-    },
-    openCalculator() {
-      this.closeOptionForm();
-      this.isCalculatorActive = true;
-    },
-    closeCalculator() {
-      this.isCalculatorActive = false;
-    },
-    openEditPanel() {
-      this.isEditActive = true;
-    },
-    closeEditPanel() {
-      this.isEditActive = false;
+    swichEditPanel() {
+      this.isEditActive = !this.isEditActive
     },
   },
   computed: {
-    ...mapGetters(["costCaregories", "currentCostCategory"]),
-  },
-};
+    ...mapGetters([
+      "costCaregories",
+      "currentCostCategory"
+    ])
+  }
+}
 </script>

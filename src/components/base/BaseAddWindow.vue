@@ -33,9 +33,7 @@ export default {
     category: {
       type: Object,
       required: false,
-      default: function () {
-        return { name: '', id: uuidv4() }
-      }
+      default: () => ( { name: '', id: uuidv4(), value: 0 } )
     },
     select: {
       type: String,
@@ -46,6 +44,7 @@ export default {
     return {
       name: this.category.name,
       id: this.category.id,
+      value: this.category.value,
       isEmpty: false,
     };
   },
@@ -61,27 +60,24 @@ export default {
       this.addCategory({
         id: this.id,
         name: this.name,
-        value: 0,
+        value: this.value,
         select: this.select
       });
 
-      this.closeForm();
+      this.closeForm()
     },
 
     closeForm() {
-      this.name = "";
-      this.$emit("close");
-    },
+      this.name = ""
+      this.$emit("close")
+    }
   },
   updated() {
     if (this.name.trim() === '') {
-      this.isEmpty = false;
+      this.isEmpty = false
     } else {
-      this.isEmpty = true;
+      this.isEmpty = true
     }
-  },
+  }
 };
 </script>
-
-<style>
-</style>

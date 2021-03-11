@@ -1,23 +1,26 @@
 <template>
   <CostList />
 
-  <div class="text-center text-xl mt-16 bg-blue-900 mx-auto p-4 rounded-full w-56" >
-    <div class="bg-white px-10 py-16 rounded-full">
-      <div class="text-xl font-medium">Расходы</div>
-      <div class="text-3xl text-red-600 font-semibold">{{ totalCost }}$</div>
-    </div>
-  </div>
+  <BaseDial 
+    name="Расходы" 
+    :totalMoney="totalCost" 
+    color="rgb(29, 78, 216)"
+  />
 </template>
 
 <script>
-import CostList from "@/components/cost/CostList";
 import { mapGetters } from 'vuex'
+import CostList from "@/components/cost/CostList"
+import BaseDial from '@/components/base/BaseDial'
 
 export default {
   name: "Cost",
-  components: { CostList },
+  components: { 
+    CostList, 
+    BaseDial
+   },
   computed: {
-      ...mapGetters([ 'totalCost' ])
-  }
+    ...mapGetters([ "totalCost" ]),
+  },
 };
 </script>

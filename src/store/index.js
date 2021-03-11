@@ -63,10 +63,17 @@ export default createStore({
         deleteCategory({ getters, commit }, category) {
 
             let categories
-            if (category.select === 'cost') {
-                categories = getters.costCaregories
-            } else {
-                categories = getters.incomeCaregories
+
+            switch(category.select) {
+                case 'cost':
+                    categories = getters.costCaregories
+                    break
+                case 'income':
+                    categories = getters.incomeCaregories
+                    break
+                default:
+                    console.error("Вы не передали параметр select!")
+                    return
             }
 
             const categoryIndex = categories.findIndex(item => item.id === category.id)
@@ -81,11 +88,18 @@ export default createStore({
         changeValue({ getters, commit }, calculation) {
 
             let categories
-            if (calculation.select === 'cost') {
-                categories = getters.costCaregories
-            } else {
-                categories = getters.incomeCaregories
+            switch(calculation.select) {
+                case 'cost':
+                    categories = getters.costCaregories
+                    break
+                case 'income':
+                    categories = getters.incomeCaregories
+                    break
+                default:
+                    console.error("Вы не передали параметр select!")
+                    return
             }
+
 
             let categoryIndex = categories.findIndex(item => item.id === calculation.categoryID)
             let newValue = eval(calculation.value)
