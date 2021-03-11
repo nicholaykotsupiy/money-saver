@@ -2,7 +2,7 @@ import { createStore } from "vuex";
 
 export default createStore({
     state: {
-        accounts: JSON.parse( localStorage.getItem('accounts') ) || [],
+        accounts: JSON.parse(localStorage.getItem('accounts')) || [],
     },
     mutations: {
         switchAccount(state, itemID) {
@@ -47,7 +47,7 @@ export default createStore({
 
             if (categoryItem.select === 'cost') {
                 currentCategories = getters.costCaregories
-            }else {
+            } else {
                 currentCategories = getters.incomeCaregories
             }
             let categoryIndex = currentCategories.findIndex(item => item.id === categoryItem.id)
@@ -65,7 +65,7 @@ export default createStore({
             let categories
             if (category.select === 'cost') {
                 categories = getters.costCaregories
-            }else {
+            } else {
                 categories = getters.incomeCaregories
             }
 
@@ -79,11 +79,11 @@ export default createStore({
             commit('setAccountToStorage')
         },
         changeValue({ getters, commit }, calculation) {
-            
+
             let categories
             if (calculation.select === 'cost') {
                 categories = getters.costCaregories
-            }else {
+            } else {
                 categories = getters.incomeCaregories
             }
 
@@ -104,63 +104,73 @@ export default createStore({
                 .find(element => element.currentAccount === true)
         },
 
-        currentAccountCosts(state) {
-            return state.accounts
-                .find(element => element.currentAccount === true)
-                .costs
+        currentAccountCosts(state, getters) {
+            // return state.accounts
+            //     .find(element => element.currentAccount === true)
+            //     .costs\
+            return getters.currentAccount.costs
         },
 
-        costCaregories(state) {
-            return state.accounts
-                .find(element => element.currentAccount === true)
-                .costs
-                .categories
+        costCaregories(state, getters) {
+            // return state.accounts
+            //     .find(element => element.currentAccount === true)
+            //     .costs
+            //     .categories
+            return getters.currentAccountCosts.categories
         },
 
-        incomeCaregories(state) {
-            return state.accounts
-                .find(element => element.currentAccount === true)
-                .income
-                .categories
+        incomeCaregories(state, getters) {
+            // return state.accounts
+            //     .find(element => element.currentAccount === true)
+            //     .income
+            //     .categories
+            return getters.currentAccount.income.categories
         },
 
-        totalCost(state) {
+        totalCost(state, getters) {
             let result = 0
-            let categories = state.accounts
-                .find(element => element.currentAccount === true)
-                .costs.categories
+            // let categories = state.accounts
+            //     .find(element => element.currentAccount === true)
+            //     .costs
+            //     .categories
 
-            for (const category of categories) {
+            for (const category of getters.costCaregories) {
                 result += category.value
             }
 
             return result
         },
 
-        totalIncome(state) {
+        totalIncome(state, getters) {
             let result = 0
-            let categories = state.accounts
-                .find(element => element.currentAccount === true)
-                .income.categories
+            // let categories = state.accounts
+            //     .find(element => element.currentAccount === true)
+            //     .income.categories
 
-            for (const category of categories) {
+            for (const category of getters.incomeCaregories) {
                 result += category.value
             }
 
             return result
         },
 
-        totalCash(state) {
-            let result = state.accounts
-                .find(element => element.currentAccount === true).money
+        totalCash(state, getters) {
+            // let result = state.accounts
+            //     .find(element => element.currentAccount === true).money
 
-            let costCategories = state.accounts
-                .find(element => element.currentAccount === true)
-                .costs.categories
+            // let costCategories = state.accounts
+            //     .find(element => element.currentAccount === true)
+            //     .costs.categories
 
-            let incomeCategories = state.accounts
-                .find(element => element.currentAccount === true)
-                .income.categories
+            // let incomeCategories = state.accounts
+            //     .find(element => element.currentAccount === true)
+            //     .income.categories
+
+
+
+            let result = getters.currentAccount.money
+            let costCategories = getters.costCaregories
+            let incomeCategories = getters.incomeCaregories
 
             for (const category of costCategories) {
                 result -= category.value
