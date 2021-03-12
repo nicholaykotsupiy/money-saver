@@ -63,11 +63,7 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      value: "",
-    };
-  },
+  data: () => ({ value: "" }),
   methods: {
     ...mapActions(["changeValue"]),
     closeCalculatorHandler() {
@@ -78,6 +74,9 @@ export default {
       let lastValueSymbol = this.value.slice(-1) || "";
 
       if (eventValue === "=") {
+        if(this.value[0] === '0') {
+          this.value = this.value.slice(1)
+        }
         this.changeValue({
           value: this.value,
           categoryID: this.category.id,
@@ -100,5 +99,5 @@ export default {
       }
     },
   },
-};
+}
 </script>
