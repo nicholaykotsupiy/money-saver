@@ -1,7 +1,10 @@
 <template>
   <div class="absolute inset-0 bg-purple-800" v-if="isActive">
     <div class="text-left mx-4 py-4">
-      <button @click="closeForm" class="text-white text-lg font-medium">
+      <button 
+        @click="closeForm" 
+        class="text-white text-lg font-medium"
+      >
         Назад
       </button>
     </div>
@@ -22,6 +25,7 @@
         type="button"
         value="Добавить"
         class="m-2 w-1/3 py-2 px-4 rounded-xl mx-auto cursor-pointer focus:outline-none"
+        :class="{ 'bg-gray-500': !isEmpty}"
         :disabled="!isEmpty"
         @click="buildNewAccount"
       />
@@ -30,20 +34,24 @@
 </template>
 
 <script>
-import { v4 as uuidv4 } from "uuid";
-import { mapActions } from "vuex";
+import { v4 as uuidv4 } from "uuid"
+import { mapActions } from "vuex"
 
 export default {
   name: "AccountCreateForm",
-  data() {
-    return {
-      accountName: "",
-      accountValue: "",
-      isEmpty: true,
-    };
+  props: {
+    isActive: {
+      type: Boolean,
+      required: true,
+    }
   },
+  data: () => ({
+    accountName: '',
+    accountValue: '',
+    isEmpty: true,
+  }),
   methods: {
-    ...mapActions(["addAccount"]),
+    ...mapActions([ "addAccount" ]),
 
     buildNewAccount() {
       this.addAccount({
@@ -51,33 +59,33 @@ export default {
         name: this.accountName,
         money: this.accountValue,
         currentAccount: false,
-      });
+        costs: {
+          categories: []
+        },
+        income: {
+          categories: []
+        }
+      })
 
-      this.closeForm();
+      this.clearForm()
+      this.closeForm()
     },
 
     clearForm() {
-      this.accountName = "";
-      this.accountValue = "";
+      this.accountName = ""
+      this.accountValue = ""
     },
 
     closeForm() {
-      this.clearForm();
-      this.$emit("close");
+      this.$emit("close")
     },
   },
   updated() {
     if (this.accountName.trim() !== "" && this.accountValue.trim() !== "") {
-      this.isEmpty = true;
+      this.isEmpty = true
     } else {
-      this.isEmpty = false;
+      this.isEmpty = false
     }
-  },
-  props: {
-    isActive: {
-      type: Boolean,
-      required: true,
-    },
-  },
-};
+  }
+}
 </script>
